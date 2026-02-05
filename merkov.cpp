@@ -2,7 +2,7 @@
 
 
 
-int readwordsFromFile(string filename, string words[], int maxWords){
+int readWordsFromFile(string filename, string words[], int maxWords){
     ifstream infile;
     int counter = 0;
     infile.open(filename);
