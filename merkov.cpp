@@ -35,11 +35,12 @@ int buildMarkovChain(const string words[], int numWords, int order, string prefi
 string getRandomSuffix(const string prefixes[], const string suffixes[],int chainSize, string currentPrefix){
     srand(time(0));
     string temp[chainSize];
-    int matchcount,tempcount=0,pick;
+    int matchcount = 0,tempcount=0,pick;
     for(int i = 0; i < chainSize; i++){
         if (currentPrefix == prefixes[i]){
             matchcount++;
-            temp[tempcount++] = suffixes[i];
+            temp[tempcount] = suffixes[i];
+            tempcount++;
         }
     }
     if (matchcount == 0){
