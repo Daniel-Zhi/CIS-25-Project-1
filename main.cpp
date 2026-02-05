@@ -4,11 +4,32 @@ using namespace std;
 
 int main(){
     srand(time(0));  //figured out that putting srand(time(0)) in the functions, you still get the same number everytime so I put it here (AI search) But I though the (time 0) is the number of seconds distanted from 1970, why does it matters?
-
-    string words[10000], prefixes[5000], suffixes[5000]; /*after adjustment, this number have the best output. although I don't know why, but big numbers like 100000 in the text will lead you to bad output or even errors*/
-    int count = readWordsFromFile("taylor.txt", words, 1000);
-    int chainSize = buildMarkovChain(words, count, 2, prefixes, suffixes, 10000);
-    cout << generateText(prefixes, suffixes, chainSize, 2, 1000);
+    string filename;
+    int order, numberWords;
+    string words[2000], prefixes[1000], suffixes[1000]; /*after adjustment, this number have the best output. although I don't know why, but big numbers like 100000 in the text will lead you to bad output or even errors*/
+    cout << "Insert the text file's name(Example: text.txt): ";
+    cin >> filename;
+     int count = readWordsFromFile(filename, words, 1000);
+    while(count == 0){
+        cout << "Invaild Filename! Please enter again!: ";
+        cin >> filename;
+        count = readWordsFromFile(filename, words, 1000);
+    }
+    cout << "Insert the order of the Markov Chain(1, 2,or 3): ";
+    cin >> order;
+       while(order != 1 && order != 2 && order != 3){
+        cout << "Invaild order! Please enter again!: ";
+        cin >> order;
+    }
+    cout << "Insert the number of words of your generated text: ";
+    cin >> numberWords;
+   
+    int chainSize = buildMarkovChain(words, count, order, prefixes, suffixes, numberWords);
+    if(chainSize == 0){
+        cout << "Insufficent data! Try again!";
+        return 0;
+    }
+    cout << "-------------------Generating text---------------\n" << generateText(prefixes, suffixes, chainSize, order, 1000);
 
     // string testWords[] = {"the", "cat", "sat", "down"};
     // cout << joinWords(testWords, 0, 2) << std::endl;  
